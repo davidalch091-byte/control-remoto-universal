@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+option java_package = "com.izziremote.proto";
+option java_multiple_files = true;
+
+message RemoteDeviceInfo {
+  optional string model = 1;
+  optional string vendor = 2;
+  optional int32 unknown1 = 3;
+  optional string unknown2 = 4;
+  optional string package_name = 5;
+  optional string app_version = 6;
+}
+
+message RemoteConfigure {
+  optional int32 code1 = 1;
+  optional RemoteDeviceInfo device_info = 2;
+}
+
+message RemoteSetActive {
+  optional int32 active = 1;
+}
+
+message RemotePingRequest {
+  optional int32 val1 = 1;
+  optional int32 val2 = 2;
+}
+
+message RemotePingResponse {
+  optional int32 val1 = 1;
+}
+
+message RemoteKeyInject {
+  optional int32 key_code = 1;
+  optional int32 direction = 2;
+}
+
+message RemoteMessage {
+  optional RemoteConfigure remote_configure = 1;
+  optional RemoteSetActive remote_set_active = 2;
+  optional RemotePingRequest remote_ping_request = 8;
+  optional RemotePingResponse remote_ping_response = 9;
+  optional RemoteKeyInject remote_key_inject = 10;
+}

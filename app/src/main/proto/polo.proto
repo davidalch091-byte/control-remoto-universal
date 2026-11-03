@@ -1,0 +1,71 @@
+syntax = "proto2";
+
+option java_package = "com.izziremote.proto";
+option java_multiple_files = true;
+
+enum PoloStatus {
+  POLO_STATUS_UNKNOWN = 0;
+  POLO_STATUS_OK = 200;
+  POLO_STATUS_ERROR = 400;
+  POLO_STATUS_BAD_CONFIGURATION = 401;
+  POLO_STATUS_BAD_SECRET = 402;
+}
+
+message PairingRequest {
+  required string service_name = 1;
+  optional string client_name = 2;
+}
+
+message PairingRequestAck {
+  optional string server_name = 1;
+}
+
+message PoloOptions {
+  message Encoding {
+    enum EncodingType {
+      ENCODING_TYPE_UNKNOWN = 0;
+      ENCODING_TYPE_ALPHANUMERIC = 1;
+      ENCODING_TYPE_NUMERIC = 2;
+      ENCODING_TYPE_HEXADECIMAL = 3;
+      ENCODING_TYPE_QRCODE = 4;
+    }
+    required EncodingType type = 1;
+    required uint32 symbol_length = 2;
+  }
+  enum RoleType {
+    ROLE_TYPE_UNKNOWN = 0;
+    ROLE_TYPE_INPUT = 1;
+    ROLE_TYPE_OUTPUT = 2;
+  }
+  repeated Encoding input_encodings = 1;
+  repeated Encoding output_encodings = 2;
+  optional RoleType preferred_role = 3;
+}
+
+message PoloConfiguration {
+  required PoloOptions.Encoding encoding = 1;
+  required PoloOptions.RoleType client_role = 2;
+}
+
+message PoloConfigurationAck {
+}
+
+message PoloSecret {
+  required bytes secret = 1;
+}
+
+message PoloSecretAck {
+  required bytes secret = 1;
+}
+
+message PoloMessage {
+  required uint32 protocol_version = 1;
+  required PoloStatus status = 2;
+  optional PairingRequest pairing_request = 10;
+  optional PairingRequestAck pairing_request_ack = 11;
+  optional PoloOptions options = 20;
+  optional PoloConfiguration configuration = 30;
+  optional PoloConfigurationAck configuration_ack = 31;
+  optional PoloSecret secret = 40;
+  optional PoloSecretAck secret_ack = 41;
+}
