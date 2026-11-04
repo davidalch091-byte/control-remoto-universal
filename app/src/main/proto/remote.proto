@@ -35,10 +35,15 @@ message RemoteKeyInject {
   optional int32 direction = 2;
 }
 
+message RemoteAppLinkLaunchRequest {
+  optional string app_link = 1;
+}
+
 message RemoteMessage {
   optional RemoteConfigure remote_configure = 1;
   optional RemoteSetActive remote_set_active = 2;
   optional RemotePingRequest remote_ping_request = 8;
   optional RemotePingResponse remote_ping_response = 9;
   optional RemoteKeyInject remote_key_inject = 10;
+  optional RemoteAppLinkLaunchRequest remote_app_link_launch_request = 90;
 }

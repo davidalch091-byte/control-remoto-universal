@@ -1,5 +1,6 @@
 package com.izziremote
 
+import com.izziremote.proto.RemoteAppLinkLaunchRequest
 import com.izziremote.proto.RemoteConfigure
 import com.izziremote.proto.RemoteDeviceInfo
 import com.izziremote.proto.RemoteKeyInject
@@ -78,6 +79,33 @@ class RemoteClient(
                         RemotePingResponse.newBuilder().setVal1(m.remotePingRequest.val1)
                     ).build()
             )
+        }
+    }
+
+    /** Abre una app de la TV con un enlace (ej. https://www.youtube.com). */
+    fun launchApp(link: String) {
+        post(
+            RemoteMessage.newBuilder()
+                .setRemoteAppLinkLaunchRequest(
+                    RemoteAppLinkLaunchRequest.newBuilder().setAppLink(link)
+                ).build()
+        )
+    }
+
+    /** Escribe texto mandando teclas (letras, números, espacio, . , - y salto de línea). */
+    fun sendText(text: String) {
+        for (ch in text.lowercase()) {
+            val code = when (ch) {
+                in 'a'..'z' -> 29 + (ch - 'a')
+                in '0'..'9' -> 7 + (ch - '0')
+                ' ' -> 62
+                '.' -> 56
+                ',' -> 55
+                '-' -> 69
+                '\n' -> 66
+                else -> -1
+            }
+            if (code > 0) sendKey(code)
         }
     }
 
