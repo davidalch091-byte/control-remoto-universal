@@ -1,4 +1,4 @@
-# Control Izzi para Android TV
+# Control remoto universal TV para Android
 
 Aplicación Android que convierte tu celular en un control remoto para decodificadores y televisores compatibles con **Android TV Remote**. Encuentra dispositivos en la red Wi-Fi, permite conectarse ingresando su IP y ofrece controles, teclado y accesos rápidos a aplicaciones.
 
