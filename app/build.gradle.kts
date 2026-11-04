@@ -23,6 +23,13 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    packaging {
+        resources {
+            excludes += "META-INF/versions/**"
+            excludes += "META-INF/MANIFEST.MF"
+            excludes += "META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 protobuf {
@@ -42,4 +49,6 @@ protobuf {
 
 dependencies {
     implementation("com.google.protobuf:protobuf-javalite:3.25.3")
+    implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
+    implementation("org.bouncycastle:bcpkix-jdk18on:1.78.1")
 }
